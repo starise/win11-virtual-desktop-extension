@@ -3,6 +3,9 @@
 ; Author: Andrea Brandi <git@andreabrandi.com>
 
 #Requires AutoHotkey v2.0
+#SingleInstance Force
+#WinActivateForce
+#UseHook True
 
 #HotIf MouseIsOnTaskbarArea() and not WinActive("ahk_class TscShellContainerClass")
   WheelDown:: GoToNextDesktop()
@@ -47,11 +50,13 @@ MoveWindowToDesktopNumber(num) {
 
 GoToNextDesktop() {
   Send("{LControl down}#{Right}{LControl up}")
+  ChangeAppearance()
   Return
 }
 
 GoToPrevDesktop() {
   Send("{LControl down}#{Left}{LControl up}")
+  ChangeAppearance()
   Return
 }
 
@@ -74,3 +79,15 @@ MoveToPrevDesktop() {
   }
   Return
 }
+
+ChangeAppearance() {
+  desknum := GetCurrentDesktopNumber() + 1
+  If (FileExist("./icons/" . desknum ".ico")) {
+    TraySetIcon("icons/" . desknum . ".ico")
+  }
+  Else {
+    TraySetIcon("icons/+.ico")
+  }
+}
+
+ChangeAppearance()
