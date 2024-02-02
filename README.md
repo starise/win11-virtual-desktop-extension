@@ -1,5 +1,7 @@
 # Windows 11 Virtual Desktop Enhancer
 
+![Windows 11 Virtual Desktop Enhancer Banner](Win11-Virtual-Desktop-Enhancer.png)
+
 Requires at least Windows 11 Version 23H2 Build 22631.3085.
 
 - Enhance Windows 11 virtual desktops with additional keyboard shortcuts.
