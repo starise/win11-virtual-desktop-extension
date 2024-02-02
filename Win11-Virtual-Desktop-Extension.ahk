@@ -12,6 +12,7 @@
 ;@Ahk2Exe-SetDescription Win11 Virtual Desktop Extension
 ;@Ahk2Exe-SetCopyright Copyright (c) 2024`, Andrea Brandi
 ;@Ahk2Exe-SetLanguage 0x0409
+;@Ahk2Exe-SetMainIcon .\icons\app.ico
 
 #Requires AutoHotkey v2.0
 #SingleInstance Force
