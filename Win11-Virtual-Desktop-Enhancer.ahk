@@ -2,6 +2,9 @@
 ; Enhance Windows 11 virtual desktops
 ; Author: Andrea Brandi <git@andreabrandi.com>
 
+; Based on VirtualDesktopAccessor Windows 11 binary
+; https://github.com/Ciantic/VirtualDesktopAccessor
+
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 #WinActivateForce
@@ -16,8 +19,31 @@
 ^#+Right:: MoveToNextDesktop() ; Ctrl+Shift+Win + Right arrow
 ^#+Left:: MoveToPrevDesktop() ; Ctrl+Shift+Win + Left arrow
 
-; VirtualDesktopAccessor Windows 11 binary, works with 23H2 22631.3085
-; https://github.com/Ciantic/VirtualDesktopAccessor/releases/tag/2024-01-25-windows11
+; Custom tray menu
+A_TrayMenu.Delete()
+A_TrayMenu.Add("Credits", OpenInfo)
+A_TrayMenu.Add("Reload", ReloadScript)
+A_TrayMenu.Add("Exit", ExitScript)
+
+OpenInfo(Item, *) {
+  VDEGui := Gui()
+  VDEGui.Title := "About"
+  info_repo := '<a href="https://github.com/starise/win11-virtual-desktop-enhancer">Win11-Virtual-Desktop-Enhancer</a>.'
+  info_author := 'Maintained by <a href="https://andreabrandi.com">Andrea Brandi</a>.'
+  info_vda := 'Based on <a href="https://github.com/Ciantic/VirtualDesktopAccessor">VirtualDesktopAccessor.dll</a> by Jari Pennanen.'
+  VDEGui.Add("Link",, info_repo " " info_author)
+  VDEGui.Add("Link",, info_vda)
+  VDEGui.Show
+}
+
+ReloadScript(Item, *) {
+  Reload()
+}
+
+ExitScript(Item, *) {
+  ExitApp()
+}
+
 VDA(func, argv*) {
   Static path := A_ScriptDir . ".\VirtualDesktopAccessor.dll"
   Static dll := DllCall("LoadLibrary", "Str", path, "Ptr")
