@@ -5,6 +5,14 @@
 ; Based on VirtualDesktopAccessor Windows 11 binary
 ; https://github.com/Ciantic/VirtualDesktopAccessor
 
+;@Ahk2Exe-Let version=1.0.0
+;@Ahk2Exe-SetVersion %U_version%
+;@Ahk2Exe-SetProductVersion %U_version%
+;@Ahk2Exe-SetName Win11 Virtual Desktop Extension
+;@Ahk2Exe-SetDescription Win11 Virtual Desktop Extension
+;@Ahk2Exe-SetCopyright Copyright (c) 2024`, Andrea Brandi
+;@Ahk2Exe-SetLanguage 0x0409
+
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 #WinActivateForce
