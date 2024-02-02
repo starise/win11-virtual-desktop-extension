@@ -1,4 +1,4 @@
-; Win11-Virtual-Desktop-Enhancer.ahk:
+; Win11-Virtual-Desktop-Extension.ahk:
 ; Enhance Windows 11 virtual desktops
 ; Author: Andrea Brandi <git@andreabrandi.com>
 
@@ -26,14 +26,14 @@ A_TrayMenu.Add("Reload", ReloadScript)
 A_TrayMenu.Add("Exit", ExitScript)
 
 OpenInfo(Item, *) {
-  VDEGui := Gui()
-  VDEGui.Title := "About"
-  info_repo := '<a href="https://github.com/starise/win11-virtual-desktop-enhancer">Win11-Virtual-Desktop-Enhancer</a>.'
+  VDExtGui := Gui()
+  VDExtGui.Title := "About"
+  info_repo := '<a href="https://github.com/starise/win11-virtual-desktop-extension">Win11-Virtual-Desktop-Extension</a>.'
   info_author := 'Maintained by <a href="https://andreabrandi.com">Andrea Brandi</a>.'
   info_vda := 'Based on <a href="https://github.com/Ciantic/VirtualDesktopAccessor">VirtualDesktopAccessor.dll</a> by Jari Pennanen.'
-  VDEGui.Add("Link",, info_repo " " info_author)
-  VDEGui.Add("Link",, info_vda)
-  VDEGui.Show
+  VDExtGui.Add("Link",, info_repo " " info_author)
+  VDExtGui.Add("Link",, info_vda)
+  VDExtGui.Show
 }
 
 ReloadScript(Item, *) {
