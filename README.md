@@ -5,7 +5,7 @@
 Requires at least Windows 11 Version 23H2 Build 22631.3085.
 
 - Enhance Windows 11 virtual desktops with additional keyboard shortcuts.
-- Switch between virtual desktops using the mouse wheel on taskbar.
+- Switch between virtual desktops using the mouse wheel on taskbar and task view.
 - Move the current selected window to another virtual desktop.
 - Show current virtual desktop number on tray icon.
 
