@@ -29,12 +29,13 @@
 ^#+Left:: MoveToPrevDesktop() ; Ctrl+Shift+Win + Left arrow
 
 ; Custom tray menu
-A_TrayMenu.Delete()
-A_TrayMenu.Add("Credits", OpenInfo)
-A_TrayMenu.Add("Reload", ReloadScript)
-A_TrayMenu.Add("Exit", ExitScript)
+VDExtMenu := A_TrayMenu
+VDExtMenu.Delete()
+VDExtMenu.Add("Credits", OpenCredits)
+VDExtMenu.Add("Reload", ReloadScript)
+VDExtMenu.Add("Exit", ExitScript)
 
-OpenInfo(Item, *) {
+OpenCredits(Item, *) {
   VDExtGui := Gui()
   VDExtGui.Title := "About"
   info_repo := '<a href="https://github.com/starise/win11-virtual-desktop-extension">Win11-Virtual-Desktop-Extension</a>.'
