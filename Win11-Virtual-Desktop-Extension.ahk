@@ -60,9 +60,10 @@ VDA(func, argv*) {
   Return DllCall(proc, argv*)
 }
 
+global taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
+global taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
+
 MouseIsOnTaskbarArea() {
-  taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
-  taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
   MouseGetPos(,,&mouseHoveringID)
   Return (mouseHoveringID == taskbarPrimaryID or mouseHoveringID == taskbarSecondaryID)
 }
