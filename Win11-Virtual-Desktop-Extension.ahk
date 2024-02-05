@@ -19,7 +19,7 @@
 #WinActivateForce
 #UseHook True
 
-#HotIf MouseIsOnTaskbarArea() and not WinActive("ahk_class TscShellContainerClass")
+#HotIf MouseOnTaskbarArea() and not IsRemoteDesktop()
   WheelDown:: GoToNextDesktop()
   WheelUp:: GoToPrevDesktop()
 #HotIf
@@ -71,9 +71,13 @@ VDA(func, argv*) {
 global taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
 global taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
 
-MouseIsOnTaskbarArea() {
+MouseOnTaskbarArea() {
   MouseGetPos(,,&mouseHoveringID)
   Return (mouseHoveringID == taskbarPrimaryID or mouseHoveringID == taskbarSecondaryID)
+}
+
+IsRemoteDesktop() {
+  return WinActive("ahk_class TscShellContainerClass")
 }
 
 GetDesktopCount() {
