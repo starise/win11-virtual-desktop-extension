@@ -31,9 +31,14 @@
 ; Custom tray menu
 VDExtMenu := A_TrayMenu
 VDExtMenu.Delete()
+VDExtMenu.Add("Task View", OpenTaskView)
 VDExtMenu.Add("Credits", OpenCredits)
 VDExtMenu.Add("Reload", ReloadScript)
 VDExtMenu.Add("Exit", ExitScript)
+
+OpenTaskView(Item, *) {
+  Send("#{Tab}")
+}
 
 OpenCredits(Item, *) {
   VDExtGui := Gui()
