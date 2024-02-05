@@ -19,7 +19,7 @@
 #WinActivateForce
 #UseHook True
 
-#HotIf MouseOnTaskbarArea() and not IsRemoteDesktop()
+#HotIf (MouseOnTaskbarArea() or MouseOnTaskViewArea()) and not IsRemoteDesktop()
   WheelDown:: GoToNextDesktop()
   WheelUp:: GoToPrevDesktop()
 #HotIf
@@ -74,6 +74,12 @@ global taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
 MouseOnTaskbarArea() {
   MouseGetPos(,,&mouseHoveringID)
   Return (mouseHoveringID == taskbarPrimaryID or mouseHoveringID == taskbarSecondaryID)
+}
+
+MouseOnTaskViewArea() {
+  MouseGetPos(,,&mouseHoveringID)
+  taskViewArea := WinActive("ahk_class XamlExplorerHostIslandWindow")
+  Return (mouseHoveringID == taskViewArea)
 }
 
 IsRemoteDesktop() {
