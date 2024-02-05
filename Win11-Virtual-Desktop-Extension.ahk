@@ -35,6 +35,8 @@ VDExtMenu.Add("Task View", OpenTaskView)
 VDExtMenu.Add("Credits", OpenCredits)
 VDExtMenu.Add("Reload", ReloadScript)
 VDExtMenu.Add("Exit", ExitScript)
+VDExtMenu.Default := "Task View"
+VDExtMenu.ClickCount := 1
 
 OpenTaskView(Item, *) {
   Send("#{Tab}")
