@@ -104,13 +104,11 @@ MoveWindowToDesktopNumber(num) {
 
 GoToNextDesktop() {
   Send("{LControl down}#{Right}{LControl up}")
-  ChangeAppearance()
   Return
 }
 
 GoToPrevDesktop() {
   Send("{LControl down}#{Left}{LControl up}")
-  ChangeAppearance()
   Return
 }
 
@@ -134,6 +132,15 @@ MoveToPrevDesktop() {
   Return
 }
 
+; Desktop changes listener
+VDA("RegisterPostMessageHook", "Ptr", A_ScriptHwnd, "Int", 0x1400 + 30, "Int")
+OnMessage(0x1400 + 30, OnDesktopChange)
+
+OnDesktopChange(wParam, lParam, msg, hwnd) {
+  ChangeAppearance()
+  Return
+}
+
 ChangeAppearance() {
   desknum := GetCurrentDesktopNumber() + 1
   If (FileExist("./icons/" . desknum ".ico")) {
@@ -142,6 +149,7 @@ ChangeAppearance() {
   Else {
     TraySetIcon("icons/+.ico")
   }
+  Return
 }
 
 ChangeAppearance()
