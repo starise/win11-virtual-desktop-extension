@@ -83,7 +83,7 @@ MouseOnTaskViewArea() {
 }
 
 IsRemoteDesktop() {
-  return WinActive("ahk_class TscShellContainerClass")
+  Return WinActive("ahk_class TscShellContainerClass")
 }
 
 GetDesktopCount() {
