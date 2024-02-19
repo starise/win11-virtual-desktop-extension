@@ -28,6 +28,9 @@
 ^#+Right:: MoveToNextDesktop() ; Ctrl+Shift+Win + Right arrow
 ^#+Left:: MoveToPrevDesktop() ; Ctrl+Shift+Win + Left arrow
 
+; Max 2000 hotkeys pressed within 2000ms
+A_MaxHotkeysPerInterval := 2000
+
 ; Custom tray menu
 VDExtMenu := A_TrayMenu
 VDExtMenu.Delete()
@@ -104,11 +107,13 @@ MoveWindowToDesktopNumber(num) {
 
 GoToNextDesktop() {
   Send("{LControl down}#{Right}{LControl up}")
+  Sleep 200
   Return
 }
 
 GoToPrevDesktop() {
   Send("{LControl down}#{Left}{LControl up}")
+  Sleep 200
   Return
 }
 
