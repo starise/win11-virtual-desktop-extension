@@ -71,18 +71,18 @@ VDA(func, argv*) {
   Return DllCall(proc, argv*)
 }
 
-global taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
-global taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
-
 MouseOnTaskbarArea() {
-  MouseGetPos(,,&mouseHoveringID)
-  Return (mouseHoveringID == taskbarPrimaryID or mouseHoveringID == taskbarSecondaryID)
+  MouseGetPos(,,&hoverID)
+  taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
+  taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
+  Return (hoverID == taskbarPrimaryID or hoverID == taskbarSecondaryID)
 }
 
 MouseOnTaskViewArea() {
-  MouseGetPos(,,&mouseHoveringID)
-  taskViewArea := WinActive("ahk_class XamlExplorerHostIslandWindow")
-  Return (mouseHoveringID == taskViewArea)
+  MouseGetPos(,,&hoverID)
+  taskviewAreaClass := "ahk_class XamlExplorerHostIslandWindow"
+  taskviewAreaID := WinActive(taskviewAreaClass)
+  Return (hoverID == WinExist(taskviewAreaID))
 }
 
 IsRemoteDesktop() {
