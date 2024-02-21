@@ -19,7 +19,7 @@
 #WinActivateForce
 #UseHook True
 
-#HotIf (MouseOnTaskbarArea() or MouseOnTaskViewArea()) and not IsRemoteDesktop()
+#HotIf (MouseOnTaskbarArea() or MouseOnTaskviewArea()) and not IsRemoteDesktop()
   WheelDown:: GoToNextDesktop()
   WheelUp:: GoToPrevDesktop()
 #HotIf
@@ -78,7 +78,7 @@ MouseOnTaskbarArea() {
   Return (hoverID == taskbarPrimaryID or hoverID == taskbarSecondaryID)
 }
 
-MouseOnTaskViewArea() {
+MouseOnTaskviewArea() {
   MouseGetPos(,,&hoverID)
   taskviewAreaClass := "ahk_class XamlExplorerHostIslandWindow"
   taskviewAreaID := WinActive(taskviewAreaClass)
@@ -129,7 +129,6 @@ MoveToNextDesktop() {
 
 MoveToPrevDesktop() {
   current := GetCurrentDesktopNumber()
-  last_desktop := GetDesktopCount() - 1
   If (current != 0) {
     MoveWindowToDesktopNumber(current - 1)
     GoToPrevDesktop()
