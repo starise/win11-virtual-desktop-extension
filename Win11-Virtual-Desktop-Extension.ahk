@@ -5,7 +5,7 @@
 ; Based on VirtualDesktopAccessor Windows 11 binary
 ; https://github.com/Ciantic/VirtualDesktopAccessor
 
-;@Ahk2Exe-Let version=1.0.0
+;@Ahk2Exe-Let version=1.1.0
 ;@Ahk2Exe-SetVersion %U_version%
 ;@Ahk2Exe-SetProductVersion %U_version%
 ;@Ahk2Exe-SetName Virtual Desktop Extension
