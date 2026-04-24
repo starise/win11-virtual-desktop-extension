@@ -1,6 +1,6 @@
 # Windows 11 Virtual Desktop Extension
 
-![Windows 11 Virtual Desktop Extension Banner](Win11-Virtual-Desktop-Extension.png)
+![Windows 11 Virtual Desktop Extension Banner](VirtualDesktopExtension.png)
 
 Requires at least Windows 11 Version 23H2 Build 22631.3085.
 

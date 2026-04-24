@@ -1,6 +1,6 @@
-; Win11-Virtual-Desktop-Extension.ahk:
+; VirtualDesktopExtension.ahk:
 ; Enhance Windows 11 virtual desktops
-; Author: Andrea Brandi <git@andreabrandi.com>
+; Author: Andrea Brandi <https://andreabrandi.com>
 
 ; Based on VirtualDesktopAccessor Windows 11 binary
 ; https://github.com/Ciantic/VirtualDesktopAccessor
@@ -20,8 +20,8 @@
 #UseHook True
 
 #HotIf (MouseOnTaskbar() or MouseOnTaskviewArea()) and not IsRemoteDesktop()
-  WheelDown:: GoToNextDesktop()
-  WheelUp:: GoToPrevDesktop()
+WheelDown:: GoToNextDesktop()
+WheelUp:: GoToPrevDesktop()
 #HotIf
 
 ; Hotkeys to move the current window to prev or next desktop
@@ -51,8 +51,8 @@ OpenCredits(Item, *) {
   info_repo := '<a href="https://github.com/starise/win11-virtual-desktop-extension">Win11-Virtual-Desktop-Extension</a>.'
   info_author := 'Maintained by <a href="https://andreabrandi.com">Andrea Brandi</a>.'
   info_vda := 'Based on <a href="https://github.com/Ciantic/VirtualDesktopAccessor">VirtualDesktopAccessor.dll</a> by Jari Pennanen.'
-  VDExtGui.Add("Link",, info_repo " " info_author)
-  VDExtGui.Add("Link",, info_vda)
+  VDExtGui.Add("Link", , info_repo " " info_author)
+  VDExtGui.Add("Link", , info_vda)
   VDExtGui.Show
 }
 
@@ -85,14 +85,14 @@ VDA(func, argv*) {
 }
 
 MouseOnTaskbar() {
-  MouseGetPos(,,&hoverID)
+  MouseGetPos(, , &hoverID)
   taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
   taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
   Return (hoverID == taskbarPrimaryID or hoverID == taskbarSecondaryID)
 }
 
 MouseOnTaskviewArea() {
-  MouseGetPos(,,&hoverID)
+  MouseGetPos(, , &hoverID)
   taskviewAreaClass := "ahk_class XamlExplorerHostIslandWindow"
   taskviewAreaID := WinActive(taskviewAreaClass)
   Return (hoverID == WinExist(taskviewAreaID))
