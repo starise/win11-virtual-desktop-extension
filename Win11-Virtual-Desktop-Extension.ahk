@@ -5,7 +5,7 @@
 ; Based on VirtualDesktopAccessor Windows 11 binary
 ; https://github.com/Ciantic/VirtualDesktopAccessor
 
-;@Ahk2Exe-Let version=1.1.0
+;@Ahk2Exe-Let version=1.1.1
 ;@Ahk2Exe-SetVersion %U_version%
 ;@Ahk2Exe-SetProductVersion %U_version%
 ;@Ahk2Exe-SetName Virtual Desktop Extension
@@ -65,10 +65,23 @@ ExitScript(Item, *) {
 }
 
 VDA(func, argv*) {
-  Static path := A_ScriptDir . ".\VirtualDesktopAccessor.dll"
+  Static path := A_ScriptDir . "\VirtualDesktopAccessor.dll"
   Static dll := DllCall("LoadLibrary", "Str", path, "Ptr")
+  If (!dll) {
+    Return ""
+  }
+
   proc := DllCall("GetProcAddress", "Ptr", dll, "AStr", func, "Ptr")
-  Return DllCall(proc, argv*)
+  If (!proc) {
+    Return ""
+  }
+
+  Try {
+    Return DllCall(proc, argv*)
+  }
+  Catch {
+    Return ""
+  }
 }
 
 MouseOnTaskbar() {
@@ -91,17 +104,20 @@ IsRemoteDesktop() {
 
 GetDesktopCount() {
   count := VDA("GetDesktopCount", "UInt")
-  Return count
+  Return (count != "") ? count : 1
 }
 
 GetCurrentDesktopNumber() {
   num := VDA("GetCurrentDesktopNumber", "Int")
-  Return num
+  Return (num != "") ? num : 0
 }
 
 MoveWindowToDesktopNumber(num) {
   activeHwnd := WinGetID("A")
-  VDA("MoveWindowToDesktopNumber", "Ptr", activeHwnd, "Int", num, "Int")
+  If (VDA("MoveWindowToDesktopNumber", "Ptr", activeHwnd, "Int", num, "Int") = "") {
+    Return False
+  }
+
   Return
 }
 
@@ -137,8 +153,9 @@ MoveToPrevDesktop() {
 }
 
 ; Desktop changes listener
-VDA("RegisterPostMessageHook", "Ptr", A_ScriptHwnd, "Int", 0x1400 + 30, "Int")
-OnMessage(0x1400 + 30, OnDesktopChange)
+If (VDA("RegisterPostMessageHook", "Ptr", A_ScriptHwnd, "Int", 0x1400 + 30, "Int") != "") {
+  OnMessage(0x1400 + 30, OnDesktopChange)
+}
 
 OnDesktopChange(wParam, lParam, msg, hwnd) {
   ChangeAppearance()
@@ -147,11 +164,13 @@ OnDesktopChange(wParam, lParam, msg, hwnd) {
 
 ChangeAppearance() {
   desknum := GetCurrentDesktopNumber() + 1
-  If (FileExist("./icons/" . desknum ".ico")) {
-    TraySetIcon("icons/" . desknum . ".ico")
+  iconPath := A_ScriptDir . "\icons\" . desknum . ".ico"
+  fallbackIconPath := A_ScriptDir . "\icons\+.ico"
+  If (FileExist(iconPath)) {
+    TraySetIcon(iconPath)
   }
   Else {
-    TraySetIcon("icons/+.ico")
+    TraySetIcon(fallbackIconPath)
   }
   Return
 }
