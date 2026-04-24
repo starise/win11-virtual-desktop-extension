@@ -11,8 +11,8 @@ Requires at least Windows 11 Version 23H2 Build 22631.3085.
 
 ## Additional Mouse & Keyboard Shortcuts
 
-- `Mouse Wheel Up` (_on taskbar_) — Switch to the previous virtual desktop.
-- `Mouse Wheel Down` (_on taskbar_) — Switch to the next virtual desktop.
+- `Mouse Wheel Up` (_on taskbars_) — Switch to the previous virtual desktop.
+- `Mouse Wheel Down` (_on taskbars_) — Switch to the next virtual desktop.
 - `Ctrl+Win+Shift + Left` — Move current window to the previous virtual desktop.
 - `Ctrl+Win+Shift + Right` — Move current window to the next virtual desktop.
 

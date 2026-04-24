@@ -19,7 +19,7 @@
 #WinActivateForce
 #UseHook True
 
-#HotIf (MouseOnTaskbarArea() or MouseOnTaskviewArea()) and not IsRemoteDesktop()
+#HotIf (MouseOnTaskbar() or MouseOnTaskviewArea()) and not IsRemoteDesktop()
   WheelDown:: GoToNextDesktop()
   WheelUp:: GoToPrevDesktop()
 #HotIf
@@ -76,15 +76,6 @@ MouseOnTaskbar() {
   taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
   taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
   Return (hoverID == taskbarPrimaryID or hoverID == taskbarSecondaryID)
-}
-
-MouseOnTaskbarArea() {
-  CoordMode("Mouse", "Screen")
-  MouseGetPos(&xPos, &yPos)
-  If (xPos <= A_ScreenWidth - 500 and yPos > A_ScreenHeight - 60) {
-    Return true
-  }
-  Return false
 }
 
 MouseOnTaskviewArea() {
