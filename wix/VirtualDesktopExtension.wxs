@@ -1,0 +1,103 @@
+<Wix
+	xmlns="http://wixtoolset.org/schemas/v4/wxs"
+	xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui"
+>
+	<Package
+		UpgradeCode="172d1a0a-54a4-4c5f-893d-f17e1a11c7ef"
+		Version="1.1.1"
+		Language="1033"
+		Name="Virtual Desktop Extension"
+		Manufacturer="Andrea Brandi"
+		InstallerVersion="500"
+		Scope="perMachineOrUser"
+	>
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+		<ui:WixUI Id="WixUI_InstallDir" InstallDirectory="ApplicationRootDir" />
+		<WixVariable Id="WixUILicenseRtf" Value="wix\LICENSE.rtf" />
+		<Icon Id="ApplicationIcon" SourceFile="icons\app.ico" />
+		<Property Id="ARPPRODUCTICON" Value="ApplicationIcon" />
+		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Virtual Desktop Extension" />
+		<Property Id="WixShellExecTarget" Value="[#VirtualDesktopExtensionExeFile]" />
+		<CustomAction
+			Id="LaunchApplication"
+			BinaryRef="Wix4UtilCA_X64"
+			DllEntry="WixShellExec"
+			Execute="immediate"
+			Return="ignore"
+		/>
+
+		<UI>
+			<Publish
+				Dialog="ExitDialog"
+				Control="Finish"
+				Event="DoAction"
+				Value="LaunchApplication"
+				Condition="WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 AND NOT Installed"
+			/>
+		</UI>
+
+		<Media Id="1" Cabinet="setup.cab" EmbedCab="yes" />
+
+		<StandardDirectory Id="ProgramFiles64Folder">
+			<Directory Id="ApplicationRootDir" Name="Virtual Desktop Extension">
+				<Directory Id="IconsDir" Name="icons" />
+			</Directory>
+		</StandardDirectory>
+
+		<StandardDirectory Id="ProgramMenuFolder">
+			<Directory Id="ApplicationProgramsFolder" Name="Virtual Desktop Extension" />
+		</StandardDirectory>
+
+		<DirectoryRef Id="ApplicationRootDir">
+			<Component Id="VirtualDesktopExtensionExe" Guid="1a2cbd95-c1bd-44b6-b6e2-912207de7a81">
+				<File
+					Id="VirtualDesktopExtensionExeFile"
+					Source="build\VirtualDesktopExtension.exe"
+					KeyPath="yes"
+					Checksum="yes"
+				/>
+			</Component>
+
+			<Component Id="VirtualDesktopAccessorDll" Guid="7eeafcd2-0e8b-4899-8f85-a29b5e4bde52">
+				<File
+					Id="VirtualDesktopAccessorDllFile"
+					Source="VirtualDesktopAccessor.dll"
+					KeyPath="yes"
+				/>
+			</Component>
+		</DirectoryRef>
+
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="5be083cd-b1f6-4969-843f-db6bedf313ed">
+				<Shortcut
+					Id="ApplicationStartMenuShortcut"
+					Name="Virtual Desktop Extension"
+					Description="Enhance Windows 11 virtual desktops"
+					Target="[#VirtualDesktopExtensionExeFile]"
+					WorkingDirectory="ApplicationRootDir"
+				/>
+
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+
+				<RegistryValue
+					Root="HKMU"
+					Key="Software\Andrea Brandi\Virtual Desktop Extension"
+					Name="installed"
+					Type="integer"
+					Value="1"
+					KeyPath="yes"
+				/>
+			</Component>
+		</DirectoryRef>
+
+		<Feature Id="MainApplication" Title="Main Application" Level="1">
+			<ComponentRef Id="VirtualDesktopExtensionExe" />
+			<ComponentRef Id="VirtualDesktopAccessorDll" />
+			<ComponentRef Id="ApplicationShortcut" />
+
+			<Files Directory="IconsDir" Include="..\icons\**" />
+		</Feature>
+	</Package>
+</Wix>
