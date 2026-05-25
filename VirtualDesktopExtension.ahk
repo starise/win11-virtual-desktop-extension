@@ -10,7 +10,7 @@
 ;@Ahk2Exe-SetProductVersion %U_version%
 ;@Ahk2Exe-SetName Virtual Desktop Extension
 ;@Ahk2Exe-SetDescription Virtual Desktop Extension
-;@Ahk2Exe-SetCopyright Copyright (c) 2024`, Andrea Brandi
+;@Ahk2Exe-SetCopyright Copyright (c) 2024-2026`, Andrea Brandi
 ;@Ahk2Exe-SetLanguage 0x0409
 ;@Ahk2Exe-SetMainIcon .\icons\app.ico
 
