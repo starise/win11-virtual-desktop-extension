@@ -164,15 +164,14 @@ OnDesktopChange(wParam, lParam, msg, hwnd) {
 
 ChangeAppearance() {
   desknum := GetCurrentDesktopNumber() + 1
-  iconPath := A_ScriptDir . "\icons\" . desknum . ".ico"
-  fallbackIconPath := A_ScriptDir . "\icons\+.ico"
-  If (FileExist(iconPath)) {
+  iconName := "d-" . Format("{:02}", desknum) . ".ico"
+  iconPath := A_ScriptDir . "\icons\" . iconName
+  fallbackIconPath := A_ScriptDir . "\icons\app.ico"
+
+  If (FileExist(iconPath))
     TraySetIcon(iconPath)
-  }
-  Else {
+  Else
     TraySetIcon(fallbackIconPath)
-  }
-  Return
 }
 
 ChangeAppearance()
