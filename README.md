@@ -2,7 +2,7 @@
 
 ![Windows 11 Virtual Desktop Extension Banner](VirtualDesktopExtension.png)
 
-Requires at least Windows 11 Version 23H2 Build 22631.3085.
+Requires at least Windows 11 Version 24H2 Build 26100.2605.
 
 - Enhance Windows 11 virtual desktops with additional keyboard shortcuts.
 - Switch between virtual desktops using the mouse wheel on taskbar and task view.
