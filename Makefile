@@ -14,7 +14,7 @@ APP_DLL := VirtualDesktopAccessor.dll
 BUILD_DIR := build
 BUILD_ZIP := .\$(BUILD_DIR)\VirtualDesktopExtension-$(VERSION).zip
 BUILD_MSI := .\$(BUILD_DIR)\VirtualDesktopExtension-$(VERSION).msi
-APP_FILES := ".\$(BUILD_DIR)\$(APP_EXE)", ".\$(APP_DLL)", ".\LICENSE", ".\icons\*"
+APP_FILES := ".\$(BUILD_DIR)\$(APP_EXE)", ".\$(APP_DLL)", ".\LICENSE", ".\icons"
 GIT_REPO := git@github.com:starise/win11-virtual-desktop-extension.git
 
 # Print a helper
