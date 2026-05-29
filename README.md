@@ -9,6 +9,18 @@ Requires at least Windows 11 Version 24H2 Build 26100.2605.
 - Move the current selected window to another virtual desktop.
 - Show current virtual desktop number on tray icon.
 
+## Installation
+
+Install with Scoop:
+
+```powershell
+scoop bucket add confetti https://github.com/starise/Scoop-Confetti
+scoop install win11-virtual-desktop-extension
+```
+
+Alternatively download the latest MSI installer or portable ZIP from the
+[releases page](https://github.com/starise/win11-virtual-desktop-extension/releases/latest).
+
 ## Additional Mouse & Keyboard Shortcuts
 
 - `Mouse Wheel Up` (_on taskbars_) — Switch to the previous virtual desktop.
