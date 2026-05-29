@@ -46,14 +46,58 @@ OpenTaskView(Item, *) {
 }
 
 OpenCredits(Item, *) {
-  VDExtGui := Gui()
-  VDExtGui.Title := "About"
-  info_repo := '<a href="https://github.com/starise/win11-virtual-desktop-extension">Win11-Virtual-Desktop-Extension</a>.'
-  info_author := 'Maintained by <a href="https://andreabrandi.com">Andrea Brandi</a>.'
-  info_vda := 'Based on <a href="https://github.com/Ciantic/VirtualDesktopAccessor">VirtualDesktopAccessor.dll</a> by Jari Pennanen.'
-  VDExtGui.Add("Link", , info_repo " " info_author)
-  VDExtGui.Add("Link", , info_vda)
-  VDExtGui.Show
+  Static CreditsGui := ""
+
+  If (IsObject(CreditsGui)) {
+    CreditsGui.Show()
+    WinActivate("ahk_id " CreditsGui.Hwnd)
+    Return
+  }
+
+  authorUrl := "https://andreabrandi.com"
+  repoUrl := "https://github.com/starise/win11-virtual-desktop-extension"
+  vdaUrl := "https://github.com/Ciantic/VirtualDesktopAccessor"
+
+  CreditsGui := Gui(, "Virtual Desktop Extension")
+  CreditsGui.MarginX := 18
+  CreditsGui.MarginY := 16
+  CreditsGui.SetFont("s9", "Segoe UI")
+
+  iconPath := A_ScriptDir . "\icons\app.ico"
+  If (FileExist(iconPath))
+    CreditsGui.Add("Picture", "xm ym w48 h48", iconPath)
+  Else
+    CreditsGui.Add("Text", "xm ym w48 h48")
+
+  CreditsGui.SetFont("s12 bold", "Segoe UI")
+  CreditsGui.Add("Text", "x+12 yp w330", "Virtual Desktop Extension")
+  CreditsGui.SetFont("s9 norm", "Segoe UI")
+  CreditsGui.Add("Text", "xp y+2 w330", "Version " GetAppVersion())
+  CreditsGui.Add("Text", "xp y+8 w330", "Enhance Windows 11 virtual desktops.")
+
+  CreditsGui.Add("Text", "xm y+16 w390 0x10")
+  CreditsGui.Add("Link", "xm y+12 w390", 'Project: <a href="' repoUrl '">win11-virtual-desktop-extension</a>')
+  CreditsGui.Add("Link", "xm y+8 w390", 'Author and maintainer: <a href="' authorUrl '">Andrea Brandi</a>')
+  CreditsGui.Add("Link", "xm y+8 w390", 'Built with <a href="' vdaUrl '">VirtualDesktopAccessor.dll</a> by Jari Pennanen.')
+  CreditsGui.Add("Text", "xm y+10 w390", "Copyright (c) 2024-2026, Andrea Brandi.")
+
+  CreditsGui.Add("Button", "xm y+16 w116", "Repository").OnEvent("Click", (*) => Run(repoUrl))
+  CreditsGui.Add("Button", "x+8 w116", "Author Website").OnEvent("Click", (*) => Run(authorUrl))
+  CreditsGui.Add("Button", "x+34 w116 Default", "Close").OnEvent("Click", (*) => CreditsGui.Hide())
+  CreditsGui.OnEvent("Close", (*) => (CreditsGui.Hide(), True))
+  CreditsGui.OnEvent("Escape", (*) => (CreditsGui.Hide(), True))
+  CreditsGui.Show()
+}
+
+GetAppVersion() {
+  If (A_IsCompiled)
+    Return RegExReplace(FileGetVersion(A_ScriptFullPath), "\.0$")
+
+  source := FileRead(A_ScriptFullPath)
+  If (RegExMatch(source, "m)^;@Ahk2Exe-Let version=([^\r\n]+)", &match))
+    Return match[1]
+
+  Return "Dev"
 }
 
 ReloadScript(Item, *) {
