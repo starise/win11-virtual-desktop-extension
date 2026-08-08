@@ -34,16 +34,12 @@ A_MaxHotkeysPerInterval := 2000
 ; Custom tray menu
 VDExtMenu := A_TrayMenu
 VDExtMenu.Delete()
-VDExtMenu.Add("Task View", OpenTaskView)
+VDExtMenu.Add("Task View", (*) => Send("#{Tab}"))
 VDExtMenu.Add("Credits", OpenCredits)
-VDExtMenu.Add("Reload", ReloadScript)
-VDExtMenu.Add("Exit", ExitScript)
+VDExtMenu.Add("Reload", (*) => Reload())
+VDExtMenu.Add("Exit", (*) => ExitApp())
 VDExtMenu.Default := "Task View"
 VDExtMenu.ClickCount := 2
-
-OpenTaskView(Item, *) {
-  Send("#{Tab}")
-}
 
 OpenCredits(Item, *) {
   Static CreditsGui := ""
@@ -93,19 +89,7 @@ GetAppVersion() {
   If (A_IsCompiled)
     Return RegExReplace(FileGetVersion(A_ScriptFullPath), "\.0$")
 
-  source := FileRead(A_ScriptFullPath)
-  If (RegExMatch(source, "m)^;@Ahk2Exe-Let version=([^\r\n]+)", &match))
-    Return match[1]
-
   Return "Dev"
-}
-
-ReloadScript(Item, *) {
-  Reload()
-}
-
-ExitScript(Item, *) {
-  ExitApp()
 }
 
 VDA(func, argv*) {
@@ -198,12 +182,7 @@ MoveToPrevDesktop() {
 
 ; Desktop changes listener
 If (VDA("RegisterPostMessageHook", "Ptr", A_ScriptHwnd, "Int", 0x1400 + 30, "Int") != "") {
-  OnMessage(0x1400 + 30, OnDesktopChange)
-}
-
-OnDesktopChange(wParam, lParam, msg, hwnd) {
-  ChangeAppearance()
-  Return
+  OnMessage(0x1400 + 30, (*) => ChangeAppearance())
 }
 
 ChangeAppearance() {
