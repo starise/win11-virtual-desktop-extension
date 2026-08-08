@@ -20,8 +20,7 @@
   "devDependencies": {
     "@alysoid/ahk-build": "0.1.0",
     "icon-gen": "^5.0.0",
-    "prettier": "3.8.3",
-    "sharp": "^0.34.5"
+    "prettier": "3.8.3"
   },
   "packageManager": "pnpm@11.4.0"
 }
