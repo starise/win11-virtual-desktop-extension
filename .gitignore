@@ -3,8 +3,8 @@
 .tools/
 build/
 dist/
+.ahk-build/
 icons/
 
 # Node
 node_modules/
-pnpm-lock.yaml

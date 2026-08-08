@@ -4,7 +4,7 @@
 >
 	<Package
 		UpgradeCode="172d1a0a-54a4-4c5f-893d-f17e1a11c7ef"
-		Version="2.1.0"
+		Version="$(var.ProductVersion)"
 		Language="1033"
 		Name="Virtual Desktop Extension"
 		Manufacturer="Andrea Brandi"
@@ -14,8 +14,8 @@
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
 		<ui:WixUI Id="WixUI_InstallDir" InstallDirectory="ApplicationRootDir" />
-		<WixVariable Id="WixUILicenseRtf" Value="wix\LICENSE.rtf" />
-		<Icon Id="ApplicationIcon" SourceFile="icons\app.ico" />
+		<WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectRoot)\wix\LICENSE.rtf" />
+		<Icon Id="ApplicationIcon" SourceFile="$(var.BuildDir)\icons\app.ico" />
 		<Property Id="ARPPRODUCTICON" Value="ApplicationIcon" />
 		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
 		<Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch Virtual Desktop Extension" />
@@ -54,7 +54,7 @@
 			<Component Id="VirtualDesktopExtensionExe" Guid="1a2cbd95-c1bd-44b6-b6e2-912207de7a81">
 				<File
 					Id="VirtualDesktopExtensionExeFile"
-					Source="build\VirtualDesktopExtension.exe"
+					Source="$(var.BuildDir)\VirtualDesktopExtension.exe"
 					KeyPath="yes"
 					Checksum="yes"
 				/>
@@ -63,7 +63,7 @@
 			<Component Id="VirtualDesktopAccessorDll" Guid="7eeafcd2-0e8b-4899-8f85-a29b5e4bde52">
 				<File
 					Id="VirtualDesktopAccessorDllFile"
-					Source="VirtualDesktopAccessor.dll"
+					Source="$(var.BuildDir)\VirtualDesktopAccessor.dll"
 					KeyPath="yes"
 				/>
 			</Component>
@@ -97,7 +97,7 @@
 			<ComponentRef Id="VirtualDesktopAccessorDll" />
 			<ComponentRef Id="ApplicationShortcut" />
 
-			<Files Directory="IconsDir" Include="..\icons\**" />
+			<Files Directory="IconsDir" Include="$(var.BuildDir)\icons\**" />
 		</Feature>
 	</Package>
 </Wix>
