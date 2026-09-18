@@ -19,9 +19,12 @@
 #WinActivateForce
 #UseHook True
 
+InvertScrollSettingsPath := A_AppData . "\Virtual Desktop Extension\settings.ini"
+InvertScroll := IniRead(InvertScrollSettingsPath, "Preferences", "InvertScroll", "0") = "1"
+
 #HotIf (MouseOnTaskbar() or MouseOnTaskviewArea()) and not IsRemoteDesktop()
-WheelDown:: GoToNextDesktop()
-WheelUp:: GoToPrevDesktop()
+WheelDown:: HandleWheel(True)
+WheelUp:: HandleWheel(False)
 #HotIf
 
 ; Hotkeys to move the current window to prev or next desktop
@@ -35,6 +38,9 @@ A_MaxHotkeysPerInterval := 2000
 VDExtMenu := A_TrayMenu
 VDExtMenu.Delete()
 VDExtMenu.Add("Task View", (*) => Send("#{Tab}"))
+VDExtMenu.Add("Reverse scroll", ToggleInvertScroll)
+If (InvertScroll)
+  VDExtMenu.Check("Reverse scroll")
 VDExtMenu.Add("Credits", OpenCredits)
 VDExtMenu.Add("Reload", (*) => Reload())
 VDExtMenu.Add("Exit", (*) => ExitApp())
@@ -112,6 +118,25 @@ VDA(func, argv*) {
   }
 }
 
+ToggleInvertScroll(Item, *) {
+  Global InvertScroll, InvertScrollSettingsPath, VDExtMenu
+  nextValue := !InvertScroll
+  Try {
+    DirCreate(A_AppData . "\Virtual Desktop Extension")
+    IniWrite(nextValue ? "1" : "0", InvertScrollSettingsPath, "Preferences", "InvertScroll")
+  }
+  Catch {
+    MsgBox("Could not save the scroll direction preference.`nThe current setting was not changed.")
+    Return
+  }
+
+  InvertScroll := nextValue
+  If (InvertScroll)
+    VDExtMenu.Check(Item)
+  Else
+    VDExtMenu.Uncheck(Item)
+}
+
 MouseOnTaskbar() {
   MouseGetPos(, , &hoverID)
   taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
@@ -128,6 +153,14 @@ MouseOnTaskviewArea() {
 
 IsRemoteDesktop() {
   Return WinActive("ahk_class TscShellContainerClass")
+}
+
+HandleWheel(isDown) {
+  Global InvertScroll
+  If (isDown != InvertScroll)
+    GoToNextDesktop()
+  Else
+    GoToPrevDesktop()
 }
 
 GetDesktopCount() {
