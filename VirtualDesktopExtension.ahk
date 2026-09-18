@@ -228,6 +228,27 @@ ChangeAppearance() {
     TraySetIcon(iconPath)
   Else
     TraySetIcon(fallbackIconPath)
+
+  UpdateTrayTip()
 }
 
+GetDesktopName(num) {
+  nameBuffer := Buffer(1024, 0)
+  If (VDA("GetDesktopName", "Int", num, "Ptr", nameBuffer, "Ptr", nameBuffer.Size, "Int") != 1)
+    Return ""
+
+  Return StrGet(nameBuffer, nameBuffer.Size, "UTF-8")
+}
+
+UpdateTrayTip() {
+  desknum := GetCurrentDesktopNumber() + 1
+  name := GetDesktopName(desknum - 1)
+  tip := "Desktop " . desknum
+  If (name != "")
+    tip .= ": " . name
+
+  A_IconTip := SubStr(tip, 1, 127)
+}
+
+SetTimer(UpdateTrayTip, 1000)
 ChangeAppearance()
