@@ -1,7 +1,7 @@
 {
   "name": "virtual-desktop-extension",
   "author": "Andrea Brandi",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "private": true,
   "type": "module",
   "scripts": {
