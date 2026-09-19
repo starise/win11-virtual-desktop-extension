@@ -188,13 +188,13 @@ MoveWindowToDesktopNumber(num) {
 }
 
 GoToNextDesktop() {
-  Send("{LControl down}#{Right}{LControl up}")
+  Send("{Blind!^+}^#{Right}")
   Sleep 200
   Return
 }
 
 GoToPrevDesktop() {
-  Send("{LControl down}#{Left}{LControl up}")
+  Send("{Blind!^+}^#{Left}")
   Sleep 200
   Return
 }
