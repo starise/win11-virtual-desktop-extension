@@ -27,6 +27,11 @@ WheelDown:: HandleWheel(True)
 WheelUp:: HandleWheel(False)
 #HotIf
 
+#HotIf not IsRemoteDesktop()
+#WheelDown:: HandleWheel(True)
+#WheelUp:: HandleWheel(False)
+#HotIf
+
 ; Hotkeys to move the current window to prev or next desktop
 ^#+Right:: MoveToNextDesktop() ; Ctrl+Shift+Win + Right arrow
 ^#+Left:: MoveToPrevDesktop() ; Ctrl+Shift+Win + Left arrow

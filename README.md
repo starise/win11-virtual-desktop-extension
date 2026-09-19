@@ -25,7 +25,9 @@ Alternatively download the latest MSI installer or portable ZIP from the
 
 - `Mouse Wheel Up` (_on taskbars_) — Switch to the previous virtual desktop.
 - `Mouse Wheel Down` (_on taskbars_) — Switch to the next virtual desktop.
-- `Reverse scroll` (_optional_) — Swap the mouse wheel direction.
+- `Win + Mouse Wheel Up` (_global_) — Switch to the previous virtual desktop.
+- `Win + Mouse Wheel Down` (_global_) — Switch to the next virtual desktop.
+- `Reverse scroll` (_optional_) — Swap direction for both wheel bindings.
 - `Ctrl+Win+Shift + Left` — Move current window to the previous virtual desktop.
 - `Ctrl+Win+Shift + Right` — Move current window to the next virtual desktop.
 
