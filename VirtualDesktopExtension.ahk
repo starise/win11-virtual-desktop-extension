@@ -144,9 +144,13 @@ ToggleInvertScroll(Item, *) {
 
 MouseOnTaskbar() {
   MouseGetPos(, , &hoverID)
-  taskbarPrimaryID := WinExist("ahk_class Shell_TrayWnd")
-  taskbarSecondaryID := WinExist("ahk_class Shell_SecondaryTrayWnd")
-  Return (hoverID == taskbarPrimaryID or hoverID == taskbarSecondaryID)
+  Try {
+    hoverClass := WinGetClass(hoverID)
+  }
+  Catch {
+    Return False
+  }
+  Return (hoverClass == "Shell_TrayWnd" or hoverClass == "Shell_SecondaryTrayWnd")
 }
 
 MouseOnTaskviewArea() {
